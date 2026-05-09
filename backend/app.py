@@ -617,37 +617,7 @@ def admin_stats():
         "redeemedPrizes": redeemed_prizes,
         "pendingRedemptions": pending_redemptions
     }), 200
-@app.route("/admin")
-def admin_dashboard():
-    conn = get_db_connection()
-    c = conn.cursor()
-    
-    c.execute("SELECT COUNT(*) FROM cards")
-    total_cards = c.fetchone()[0]
-    
-    c.execute("SELECT COUNT(*) FROM cards WHERE status = 'winner'")
-    total_winners = c.fetchone()[0]
-    
-    c.execute("SELECT COUNT(*) FROM cards WHERE status = 'loser'")
-    total_losers = c.fetchone()[0]
-    
-    c.execute("SELECT COUNT(*) FROM redemptions WHERE status = 'redeemed'")
-    redeemed_prizes = c.fetchone()[0]
-    
-    c.execute("SELECT COUNT(*) FROM redemptions WHERE status = 'pending'")
-    pending_redemptions = c.fetchone()[0]
-    
-    conn.close()
-    
-    return (
-    "<h1>J&N LOYA Admin Dashboard</h1>"
-    "<ul>"
-    f"<li><strong>Total Cards:</strong> {total_cards}</li>"
-    f"<li><strong>Total Winners:</strong> {total_winners}</li>"
-    f"<li><strong>Total Losers:</strong> {total_losers}</li>"
-    f"<li><strong>Redeemed Prizes:</strong> {redeemed_prizes}</li>"
-    f"<li><strong>Pending Redemptions:</strong> {pending_redemptions}</li>"
-    "</ul>"
-    )
-    if __name__ == '__main__':  
-        app.run(debug=True, port=5001)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
