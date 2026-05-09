@@ -1,0 +1,9 @@
+.App {
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --deep-blue: #0B3C6D;
+  --red: #D62828;
+  --white: #FFFFFF;
+}
