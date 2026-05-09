@@ -620,5 +620,5 @@ def admin_dashboard():
     f"<li><strong>Pending Redemptions:</strong> {pending_redemptions}</li>"
     "</ul>"
     )
-    if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    if __name__ == '__main__':  
+        app.run(debug=True, port=5001)
