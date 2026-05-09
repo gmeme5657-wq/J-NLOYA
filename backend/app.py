@@ -610,14 +610,15 @@ def admin_dashboard():
     
     conn.close()
     
-    return f"""
-    <h1>J&N LOYA Admin Dashboard</h1>
-    <ul>
-        <li><strong>Total Cards:</strong> {total_cards}</li>
-        <li><strong>Total Winners:</strong> {total_winners}</li>
-        <li><strong>Total Losers:</strong> {total_losers}</li>
-        <li><strong>Redeemed Prizes:</strong> {redeemed_prizes}</li>
-        <li><strong>Pending Redemptions:</strong> {pending_redemptions}</li>
-    </ul>
+    return (
+    "<h1>J&N LOYA Admin Dashboard</h1>"
+    "<ul>"
+    f"<li><strong>Total Cards:</strong> {total_cards}</li>"
+    f"<li><strong>Total Winners:</strong> {total_winners}</li>"
+    f"<li><strong>Total Losers:</strong> {total_losers}</li>"
+    f"<li><strong>Redeemed Prizes:</strong> {redeemed_prizes}</li>"
+    f"<li><strong>Pending Redemptions:</strong> {pending_redemptions}</li>"
+    "</ul>"
+)    </ul>
     """if __name__ == '__main__':
     app.run(debug=True, port=5001)
