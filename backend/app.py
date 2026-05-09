@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, render_template
+from flask import Flask, request, jsonify, session
 import sqlite3
 import os
 import re
@@ -233,35 +233,6 @@ def ensure_seed_data():
 
 
 ensure_seed_data()
-
-
-@app.route('/')
-def home():
-    return '<h1>J&N LOYA API is running</h1><p>Go to <a href="/admin">/admin</a> for the dashboard</p>'
-
-
-@app.route('/admin')
-def admin_dashboard():
-    db = get_db()
-
-    total_cards = db.execute("SELECT COUNT(*) as c FROM coupon_cards").fetchone()["c"]
-    total_winners = db.execute("SELECT COUNT(*) as c FROM customer_entries WHERE result = 'Won'").fetchone()["c"]
-    total_losers = db.execute("SELECT COUNT(*) as c FROM customer_entries WHERE result = 'Lost'").fetchone()["c"]
-
-    redeemed_prizes = db.execute(
-        "SELECT COUNT(*) as c FROM customer_entries WHERE redeemed = 1 AND result = 'Won'"
-    ).fetchone()["c"]
-
-    pending_redemptions = db.execute(
-        """
-        SELECT COUNT(*) as c
-        FROM customer_entries
-        WHERE redeemed = 0 AND result = 'Won'
-        """
-    ).fetchone()["c"]
-
-    db.close()
-    return render_template('admin.html', totalCards=total_cards, totalWinners=total_winners, totalLosers=total_losers, redeemedPrizes=redeemed_prizes, pendingRedemptions=pending_redemptions)
 
 
 @app.route('/api/admin/login', methods=['POST'])

@@ -27,7 +27,7 @@ const formatCardNumber = (raw) => {
   if (!match) return '';
   const num = Number(match[1]);
   if (!Number.isFinite(num)) return '';
-  return `A${num.toString().padStart(5, '0')}`;
+  return `A${num.toString().padStart(4, '0')}`;
 };
 
 const normalizePhone = (raw) => {
@@ -41,9 +41,9 @@ const isValidPhoneInput = (raw) => {
   return /^6\d{8}$/.test(v) || /^\+2376\d{8}$/.test(v);
 };
 
-const isValidCardFormat = (card) => /^A\d{5}$/.test(card);
+const isValidCardFormat = (card) => /^A\d{4}$/.test(card);
 const isCardInMasterRange = (card) => {
-  const m = card.match(/^A(\d{5})$/);
+  const m = card.match(/^A(\d{4})$/);
   if (!m) return false;
   const num = Number(m[1]);
   return num >= CARD_MIN && num <= CARD_MAX;
@@ -82,14 +82,14 @@ const ClientHome = () => {
       return '';
     }
 
-    if (field === 'card_number') {
-      if (!v.trim()) return 'Coupon Card Number is required';
-      const formatted = formatCardNumber(v);
-      if (!formatted) return 'Invalid card format (must be A followed by 5 digits, e.g., A12345)';
-      if (!isValidCardFormat(formatted)) return 'Invalid card format (must be A followed by 5 digits, e.g., A12345)';
-      if (!isCardInMasterRange(formatted)) return `Invalid card number. Valid range is A${String(CARD_MIN).padStart(5, '0')} to A${String(CARD_MAX).padStart(5, '0')}`;
-      return '';
-    }
+      if (field === 'card_number') {
+        if (!v.trim()) return 'Coupon Card Number is required';
+        const formatted = formatCardNumber(v);
+        if (!formatted) return 'Invalid card format';
+        if (!isValidCardFormat(formatted)) return 'Invalid card format';
+        if (!isCardInMasterRange(formatted)) return 'Invalid card number';
+        return '';
+      }
 
     return '';
   };
@@ -98,7 +98,7 @@ const ClientHome = () => {
     const { name, value } = e.target;
     let nextValue = value;
 
-    if (name === 'card_number') nextValue = value.toUpperCase().slice(0, 6);
+    if (name === 'card_number') nextValue = value.toUpperCase().slice(0, 5);
 
     setForm((prev) => ({ ...prev, [name]: nextValue }));
 
@@ -338,7 +338,6 @@ const ClientHome = () => {
                 <input
                   type="text"
                   name="card_number"
-                  placeholder="Input 5-digit number"
                   value={form.card_number}
                   onChange={handleChange}
                   required
