@@ -588,7 +588,18 @@ def admin_stats():
         "redeemedPrizes": redeemed_prizes,
         "pendingRedemptions": pending_redemptions
     }), 200
-
-
+@app.route("/admin")
+def admin_dashboard():
+    stats = admin_stats()[0].get_json()
+    return f"""
+    <h1>J&N LOYA Admin Dashboard</h1>
+    <ul>
+        <li><strong>Total Cards:</strong> {stats['totalCards']}</li>
+        <li><strong>Total Winners:</strong> {stats['totalWinners']}</li>
+        <li><strong>Total Losers:</strong> {stats['totalLosers']}</li>
+        <li><strong>Redeemed Prizes:</strong> {stats['redeemedPrizes']}</li>
+        <li><strong>Pending Redemptions:</strong> {stats['pendingRedemptions']}</li>
+    </ul>
+    """
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
