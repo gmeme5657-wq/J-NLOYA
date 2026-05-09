@@ -590,16 +590,34 @@ def admin_stats():
     }), 200
 @app.route("/admin")
 def admin_dashboard():
-    stats = admin_stats()[0].get_json()
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    c.execute("SELECT COUNT(*) FROM cards")
+    total_cards = c.fetchone()[0]
+    
+    c.execute("SELECT COUNT(*) FROM cards WHERE status = 'winner'")
+    total_winners = c.fetchone()[0]
+    
+    c.execute("SELECT COUNT(*) FROM cards WHERE status = 'loser'")
+    total_losers = c.fetchone()[0]
+    
+    c.execute("SELECT COUNT(*) FROM redemptions WHERE status = 'redeemed'")
+    redeemed_prizes = c.fetchone()[0]
+    
+    c.execute("SELECT COUNT(*) FROM redemptions WHERE status = 'pending'")
+    pending_redemptions = c.fetchone()[0]
+    
+    conn.close()
+    
     return f"""
     <h1>J&N LOYA Admin Dashboard</h1>
     <ul>
-        <li><strong>Total Cards:</strong> {stats['totalCards']}</li>
-        <li><strong>Total Winners:</strong> {stats['totalWinners']}</li>
-        <li><strong>Total Losers:</strong> {stats['totalLosers']}</li>
-        <li><strong>Redeemed Prizes:</strong> {stats['redeemedPrizes']}</li>
-        <li><strong>Pending Redemptions:</strong> {stats['pendingRedemptions']}</li>
+        <li><strong>Total Cards:</strong> {total_cards}</li>
+        <li><strong>Total Winners:</strong> {total_winners}</li>
+        <li><strong>Total Losers:</strong> {total_losers}</li>
+        <li><strong>Redeemed Prizes:</strong> {redeemed_prizes}</li>
+        <li><strong>Pending Redemptions:</strong> {pending_redemptions}</li>
     </ul>
-    """
-if __name__ == '__main__':
+    """if __name__ == '__main__':
     app.run(debug=True, port=5001)
