@@ -6,10 +6,6 @@
       "runtime": "python3.12"
     }
   },
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "JWT_SECRET": "@jwt_secret"
-  },
   "headers": [
     {
       "source": "/(.*)",
