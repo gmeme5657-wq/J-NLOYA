@@ -1,0 +1,12 @@
+.result {
+  text-align: center;
+  padding: 2rem;
+}
+
+.win {
+  color: var(--deep-blue);
+}
+
+.lose {
+  color: var(--red);
+}

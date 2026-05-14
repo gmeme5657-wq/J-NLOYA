@@ -1,0 +1,64 @@
+/* Global premium theme */
+:root {
+  --primary-blue: #0B2E83;
+  --accent-red: #D62828;
+  --bg-white: #FFFFFF;
+  --light-gray: #F5F5F5;
+  --dark-text: #1A1A1A;
+
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 10px 24px rgba(11, 46, 131, 0.10);
+  --shadow-press: 0 6px 14px rgba(0, 0, 0, 0.12);
+
+  --outline: rgba(11, 46, 131, 0.18);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--dark-text);
+  background: var(--bg-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Premium “luxury” animations */
+@keyframes floatIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 0 rgba(214, 40, 40, 0.0); }
+  50% { box-shadow: 0 0 0 10px rgba(214, 40, 40, 0.08); }
+  100% { box-shadow: 0 0 0 rgba(214, 40, 40, 0.0); }
+}
